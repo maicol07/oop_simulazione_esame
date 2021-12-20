@@ -13,12 +13,12 @@ public class VectorImpl<X> implements Vector<X> {
 	
 	@Override
 	public Optional<X> getAtPosition(int position) {
-		try {
-			var element = list.get(position);
-			return Optional.of(element);
-		} catch (IndexOutOfBoundsException exception) {
+		if (position > list.size() - 1) {
 			return Optional.empty();
 		}
+		
+		var element = list.get(position);
+		return Optional.of(element);
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class VectorImpl<X> implements Vector<X> {
 
 	@Override
 	public void executeOnAllElements(Executor<X> executor) {
-		list.forEach(element -> executor.execute(element));
+		list.forEach(executor::execute);
 	}
 
 }

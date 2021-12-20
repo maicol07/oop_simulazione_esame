@@ -40,12 +40,16 @@ public class VectorBuilderImpl<X> implements VectorBuilder<X> {
 
 	@Override
 	public Optional<Vector<X>> buildWithFilter(Filter<X> filter) {
-		/*var list = List.copyOf(list);
-		list.
-		Optional<Vector<X>> value = buildDone ? Optional.empty() : Optional.of(new VectorImpl<X>(filteredList));
+		var list = this.list.stream().filter(filter::check).collect(Collectors.toList());
+		
+		// All elements must pass the filter
+		if (list.size() != this.list.size()) {
+			return Optional.empty();
+		}
+		
+		Optional<Vector<X>> value = buildDone ? Optional.empty() : Optional.of(new VectorImpl<X>(list));
 		buildDone = true;
-		return value;*/
-		return null;
+		return value;
 	}
 
 	@Override
